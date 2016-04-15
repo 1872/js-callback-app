@@ -1,35 +1,20 @@
-// console.log('first');
 
-// setTimeout(function() {
-//   console.log('second');
-// }, 1000);
+function getData() {
+  var divEmployees = document.getElementById('employees');
+  divEmployees.innerHTML = 'Loading...';
 
-// console.log('third');
-
-// setInterval(function() {
-//   console.log("Hello");
-// }, 3000);
-
-function changeColors() {
-  setTimeout(function() {
-    document.getElementById('first').style['color'] = "red";
-
-    setTimeout(function() {
-      document.getElementById('second').style['color'] = "blue";
-      
-      setTimeout(function() {
-        document.getElementById('third').style['color'] = "green";
-
-        setTimeout(function() {
-          document.getElementById('fourth').style['color'] = "purple";
-          console.log('done!');
-        }, 3000);
-
-      }, 3000);
-      
-    }, 3000);
-
-
-  }, 3000);
-  console.log('start!');
+  fetch('https://data.cityofchicago.org/resource/xzkq-xp2w.json').then(function(response) {
+    response.json().then(function(data) {
+      console.log(data);
+      var htmlString = '';
+      for (var i = 0; i < data.length; i++) {
+        var employee = data[i];
+        htmlString += '<h2>' + employee.name + '</h2>';
+        htmlString += '<p>Title: ' + employee.job_titles + '</p>';
+        htmlString += '<p>Department: ' + employee.department + '</p>';
+        htmlString += '<p>Salary: ' + employee.employee_annual_salary + '</p>';
+      }
+      divEmployees.innerHTML = htmlString;
+    });
+  });
 }
