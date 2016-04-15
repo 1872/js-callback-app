@@ -3,8 +3,10 @@ function getData() {
   var divEmployees = document.getElementById('employees');
   divEmployees.innerHTML = 'Loading...';
 
-  fetch('https://data.cityofchicago.org/resource/xzkq-xp2w.json').then(function(response) {
-    response.json().then(function(data) {
+  fetch('https://data.cityofchicago.org/resource/xzkq-xp2w.json')
+    .then(function(response) {
+      return response.json();
+    }).then(function(data) {
       console.log(data);
       var htmlString = '';
       for (var i = 0; i < data.length; i++) {
@@ -16,5 +18,4 @@ function getData() {
       }
       divEmployees.innerHTML = htmlString;
     });
-  });
 }
