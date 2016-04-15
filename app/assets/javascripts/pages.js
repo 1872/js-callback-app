@@ -11,11 +11,41 @@ function getData() {
       var htmlString = '';
       for (var i = 0; i < data.length; i++) {
         var employee = data[i];
+        htmlString += '<div class="item" onclick="changeEmployee(this)">';
         htmlString += '<h2>' + employee.name + '</h2>';
         htmlString += '<p>Title: ' + employee.job_titles + '</p>';
         htmlString += '<p>Department: ' + employee.department + '</p>';
         htmlString += '<p>Salary: ' + employee.employee_annual_salary + '</p>';
+        htmlString += '</div>';
       }
       divEmployees.innerHTML = htmlString;
     });
+}
+
+function changeEmployee(divEmployee) {
+  if (divEmployee.style['color'] === 'lightgray') {
+    divEmployee.style['color'] = '';
+  } else {
+    divEmployee.style['color'] = 'lightgray';
+  }
+}
+
+function showAll() {
+  var employees = document.querySelectorAll("div.item");
+  for (var i = 0; i < employees.length; i++) {
+    var employee = employees[i];
+    employee.style["display"] = "";
+  }
+}
+
+function showPolice() {
+  var employees = document.querySelectorAll("div.item");
+  for (var i = 0; i < employees.length; i++) {
+    var employee = employees[i];
+    if (employee.innerHTML.indexOf("Department: POLICE") !== -1) {
+      employee.style["display"] = "";
+    } else {
+      employee.style["display"] = "none";
+    }
+  }
 }
